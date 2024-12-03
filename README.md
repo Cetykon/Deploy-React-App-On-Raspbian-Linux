@@ -111,6 +111,47 @@ server {
     }
 }
 ```
+> **Note:** You may need to specify were certain types of files are if you getting and error
+> 
+### For exmample: 
+
+```bash
+listen 80;
+server_name 48.46.47.37;
+
+# location /iepchatbot {
+#     alias /home/cetykon/WebsiteHosting/IEP_Chatbot_Frontend/iepchatbot/build;
+# }
+
+location / {
+    root /home/cetykon/WebsiteHosting/Cetykon-Current-Season-Anime-List/myfirstreactapp/build;
+}
+
+# Serve static JS files
+location /myfirstreactapp/static/js/ {
+    alias /home/cetykon/WebsiteHosting/Cetykon-Current-Season-Anime-List/myfirstreactapp/build/static/js/;
+}
+
+# Serve static CSS files
+location /myfirstreactapp/static/css/ {
+    alias /home/cetykon/WebsiteHosting/Cetykon-Current-Season-Anime-List/myfirstreactapp/build/static/css/;
+}
+
+# Serve the manifest.json file
+location /myfirstreactapp/manifest.json {
+    alias /home/cetykon/WebsiteHosting/Cetykon-Current-Season-Anime-List/myfirstreactapp/build/manifest.json;
+}
+
+# Serve static media files (if any)
+location /myfirstreactapp/static/media/ {
+    alias /home/cetykon/WebsiteHosting/Cetykon-Current-Season-Anime-List/myfirstreactapp/build/static/media/;
+}
+
+# Optionally, a catch-all for 404 errors
+location = /404.html {
+    internal;
+}
+```
 
 Enable the configuration:
 ```bash
