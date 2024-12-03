@@ -1,0 +1,85 @@
+How to run a react website on a raspberry pi:
+
+You will need to have rasbian os install 
+
+Go to the terminal crtl+Alt+t
+
+make sure libraries are up to date:
+sudo apt update
+sudo apt upgrade
+
+install git:
+sudo apt install git
+
+Install Node.js and npm:
+curl -sL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+sudo apt install -y nodejs
+
+Verify install:
+node -v
+npm -v
+
+Clone your git project:
+cd to_prefer_directory
+git clone https://github.com/your-repo/your-project.git
+(when cloning you will need to input credentials, you will need to create a key and input that as your password)
+cd your-project
+
+Build the react:
+cd to_where_your_app_is
+npm install
+npm run build
+
+Install Nginx:
+sudo apt install nginx
+
+To configure Nginx (i use micro instead of nano to edit files, sudo apt install micro):
+sudo nano /etc/nginx/sites-available/your_project
+
+An example configuration (to find your public ip use: curl ifconfig.me):
+
+server {
+    listen 80;
+    server_name 48.46.47.37;
+
+
+    location / {
+    	root /home/cetykon/WebsiteHosting/IEP_Chatbot_Frontend/iepchatbot/build;
+    }
+
+    # Optionally, you can add a catch-all location block for errors
+    location = /404.html {
+        internal;
+    }
+
+}
+
+
+
+Enable this configuration:
+sudo ln -s /etc/nginx/sites-available/your_project /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo systemctl restart nginx
+
+sometimes you may need to disable or remove the default configuration:
+sudo rm /etc/nginx/sites-enabled/default
+
+Ensure you have the simbolic link to your configuration:
+sudo ln -s /etc/nginx/sites-available/my_project /etc/nginx/sites-enabled/
+
+Make sure permissions are given to nginx to read the files:
+ls -l /home/cetykon/WebsiteHosting/IEP_Chatbot_Frontend/iepchatbot/build/index.html
+sudo chown -R www-data:www-data /home/cetykon/WebsiteHosting/IEP_Chatbot_Frontend/iepchatbot/build
+sudo chmod -R 755 /home/cetykon/WebsiteHosting/IEP_Chatbot_Frontend/iepchatbot/build
+sudo chmod 755 /home/cetykon
+sudo chmod 755 /home/cetykon/WebsiteHosting
+sudo chmod 755 /home/cetykon/WebsiteHosting/IEP_Chatbot_Frontend
+sudo chmod 755 /home/cetykon/WebsiteHosting/IEP_Chatbot_Frontend/iepchatbot
+sudo chmod 755 /home/cetykon/WebsiteHosting/IEP_Chatbot_Frontend/iepchatbot/build
+
+Make sure to restart when every thing is set up:
+sudo systemctl restart ngninx
+
+
+
+
