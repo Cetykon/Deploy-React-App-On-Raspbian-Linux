@@ -1,5 +1,5 @@
 # Deploy-React-App-On-Raspbian-Linux
-###This repo contains a simple guide on how to self-host your own web react app.
+### This repo contains a simple guide on how to self-host your own web react app.
 
 
 # How to Run a React Website on a Raspberry Pi
